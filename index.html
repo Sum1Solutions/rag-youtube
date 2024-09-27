@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Playlist Viewer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-8">YouTube Playlist Viewer</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+                <iframe 
+                    width="560" 
+                    height="315" 
+                    src="https://www.youtube.com/embed/videoseries?list=PL6TYbnB3Rppo5dL7iuBlbJIkBQXEWyGFi" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div>
+                <div id="chat" class="bg-white p-4 rounded shadow h-96 overflow-y-auto mb-4"></div>
+                <form id="chatForm" class="flex">
+                    <input type="text" id="userInput" class="flex-grow border border-gray-300 rounded-l px-4 py-2" placeholder="Ask a question...">
+                    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-r">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('chatForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const userInput = document.getElementById('userInput').value;
+            if (userInput.trim() === '') return;
+
+            addMessageToChat('User', userInput);
+            document.getElementById('userInput').value = '';
+
+            // Simulate a response (replace this with actual chat functionality)
+            setTimeout(() => {
+                addMessageToChat('Assistant', "I'm a simple chat simulator. To implement real chat functionality, you'd need to integrate with a backend service or API.");
+            }, 1000);
+        });
+
+        function addMessageToChat(sender, message) {
+            const chatDiv = document.getElementById('chat');
+            const messageElement = document.createElement('div');
+            messageElement.className = 'mb-2';
+            messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+            chatDiv.appendChild(messageElement);
+            chatDiv.scrollTop = chatDiv.scrollHeight;
+        }
+    </script>
+</body>
+</html>
